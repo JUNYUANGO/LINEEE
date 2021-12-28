@@ -31,14 +31,14 @@ public class fee {
         return 2*getWater()+3*getElectricity();
     }
 
-//    public static void main(String[] args) {
-//        fee tFee = new fee(0.0, 0.0);
-//        for (int i = 0; i < 30; i++){
-//             tFee.setWater(0.7*i);
-//             tFee.setElectricity(2*i);
-//            System.out.println(tFee);
-//            System.out.println("Daily Fee: "+tFee.getFee()+"\n");
-//        }
-//        System.out.println("PAYDAY! Your Total Fee: "+tFee.getFee());
-//    }
+   public static void main(String[] args) {
+       fee tFee = new fee(0.0, 0.0);
+       for (int i = 0; i < 30; i++){
+            tFee.setWater(0.7*i);
+            tFee.setElectricity(2*i);
+           System.out.println(tFee);
+           System.out.println("Daily Fee: "+tFee.getFee()+"\n");
+       }
+       System.out.println("PAYDAY! Your Total Fee: "+tFee.getFee());
+   }
 }
