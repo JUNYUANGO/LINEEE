@@ -16,12 +16,8 @@ public class HashTable {
             //find an abnormal value for p.
             this.p = size;
             while (p-- > 0){
-                if (p % 2 != 0) {
-                    if (p % 3 != 0) {
-                        if (p % 5 != 0) {
-                            break;
-                        }
-                    }
+                if (p % 2 == 0) {
+                    break;
                 }
             }
         } catch (Exception e){
@@ -30,21 +26,21 @@ public class HashTable {
         }
     }
 
-    public int hash(int id){
+
+    public int hash(String id){
         int index = 0;
-        String s = Integer.toString(id);
         boolean result = false;
         while (!result){
             /*
-              Assume that an ID will be valid if with a length of 5 or larger.
+              Assume that an ID will be valid if with a length of 6 or larger.
               This part will be changed if checking the validity of ID.
              */
-            if (s.length() < 5){
+            if (id.length() < 6){
                 System.out.println("Please enter correct id.");
                 return -1;
             }
             else {
-                index = (26*26*26*s.charAt(0)+26*26*s.charAt(1)+26*s.charAt(2)+13*s.charAt(3)+7*s.charAt(4)) % p;
+                index = ((26*26*(id.charAt(0)+id.charAt(1))+26*(id.charAt(2)+id.charAt(3))+id.charAt(id.length()-1)) % p);
                 result = true;
             }
         }
@@ -91,13 +87,13 @@ public class HashTable {
             tenantNode ptr = tenants[index];
 
             //check the first one
-            if (ptr.getT().getId() == t.getId()){
+            if (ptr.getT().getId().equals(t.getId())){
                 tenants[index] = ptr.getNext();
             } else {
                 tenantNode trailer = ptr;
                 ptr = ptr.getNext();
                 while (ptr.getNext() != null){
-                    if (ptr.getT().getId() == t.getId()){
+                    if (ptr.getT().getId().equals(t.getId())){
                         trailer.setNext(ptr.getNext());
                         num--;
                         System.out.println("Account is successfully deleted. (Name: "+ptr.getT().getName()+")");
@@ -116,15 +112,15 @@ public class HashTable {
      * @param id: to check if the tenant with the given id is already in database.
      * @return return true if it exists, false for no.
      */
-    public boolean existed(int id) {
+    public boolean existed(String id) {
         int index = hash(id);
         if (tenants[index] != null) {
             tenantNode ptr = tenants[index];
-            if (ptr.getT().getId() == id){
+            if (ptr.getT().getId().equals(id)){
                 return true;
             } else {
                 while (ptr != null) {
-                    if (ptr.getT().getId() == id) {
+                    if (ptr.getT().getId().equals(id)) {
                         return true;
                     } else {
                         ptr = ptr.getNext();
@@ -151,34 +147,58 @@ public class HashTable {
         return num;
     }
 
-    /**
-     * print out the number of collisions with their indices, empty space, the length of the longest chain.
-     */
-    public void findCollision(){
-        int countCol = 0;
-        int empty = 0;
-        int longest = 0;
-        for (tenantNode tenant : tenants) {
-            int c = 0;
-            if (tenant != null) {
-                tenantNode ptr = tenant;
-                while (ptr != null) {
-                    ptr = ptr.getNext();
-                    c++;
-                }
-                if (c > 1) {
-                    countCol++;
-                }
-            } else {
+    //display the Hash Table and its Performance
+    public void display(){
+        countHelper();
+        System.out.println("average collision length: "+avg);
+        System.out.println("length of the longest chain: "+longest);
+        System.out.println("number of empty indices: "+empty);
+        System.out.println("number of non-empty indices: "+(size-empty));
+
+    }
+
+    //variables for counter():
+    private int longest = 0;
+    private int avg = 0;
+    private int empty = 0;
+
+    //counter method to count for unique tokens, longest chain, avg collision length, empty and non-empty indices
+    public void countHelper(){
+        for (int i = 0; i < size; i++){
+            if (tenants[i] == null){
                 empty++;
-            }
-            if (c > longest) {
-                longest = countCol;
+            } else {
+                //check for longest chain
+                int temp = 0;
+                tenantNode ptr = tenants[i];
+                while (ptr != null){
+                    ptr = ptr.getNext();
+                    temp++;
+                }
+                if (temp > longest){
+                    longest = temp;
+                }
             }
         }
-        System.out.println("Number of Collisions (c > 1): "+countCol);
-        System.out.println("Number of empty space (c = 0): "+empty);
-        System.out.println("Longest Chain: "+longest);
+        avg = getNum()/(size-empty);
+    }
+
+    public String getRandomID(){
+        String[] s = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        StringBuilder temp = new StringBuilder();
+        boolean r = false;
+        while (!r) {
+            int f = (int) (s.length*Math.random());
+            temp.append(s[f]);
+            int temp1 = (int) (10000000 * Math.random());
+            if (Integer.toString(temp1).length() == 7){
+                temp.append(temp1);
+                break;
+            }
+        }
+        int l = (int) (s.length*Math.random());
+        temp.append(s[l]);
+        return temp.toString();
     }
 
 
@@ -188,10 +208,24 @@ public class HashTable {
         int size = t.nextInt();
         HashTable test = new HashTable(size);
         int num = (int) (size*0.75);
-        for (int i = 0; i < num; i++){
-            Tenant temp = new Tenant("test", 20000+i*num*13, "test_nickname", 1000+i, 0.0, 100);
-            test.add(temp);
+
+        String[] id = new String[num];
+        String[] s = new String[]{"Abel", "Apple", "Bella", "Chris", "Dave", "Eason", "Frozen", "Git", "Hud",
+                "Intellij", "Jason", "Kris", "Lonely", "Money", "Niko", "OVO", "Pokemon", "Qatar", "Rstar", "Stewart", "TwT"};
+        String[] name = new String[num];
+
+        for (int i = 0; i < id.length; i++) {
+            id[i] = test.getRandomID();
+            int f = (int) (s.length*Math.random());
+            int l = (int) (s.length*Math.random());
+            String temp2 = s[f]+" "+s[l];
+            name[i] = temp2;
         }
+
+        for (int j = 0; j < num; j++){
+            test.add(new Tenant(name[j], id[j], name[j], 1000+j, 100.0, 100));
+        }
+
 
         //num check
         System.out.println("---getNum check---");
@@ -201,22 +235,23 @@ public class HashTable {
         System.out.println("---getSize check---");
         System.out.println("Supposed to have "+test.getSize()+" tenants. Test gives: "+test.getSize()+"");
 
-        //collision check
-        test.findCollision();
-
         //existed check
         System.out.println("---Existed check---");
         for (int j = 0; j < num; j++){
-            boolean result = test.existed(20000+j*num*13);
+            boolean result = test.existed(id[j]);
             if (!result){
                 System.out.println("test failed x"+j);
             }
         }
 
+        //collision performance check
+        System.out.println("---Performance check---");
+        test.display();
+
         //delete check
         System.out.println("---Delete check---");
         for (int k = 0; k < num; k++){
-            Tenant temp = new Tenant("test", 20000+k*num*13, "test_nickname", 1000+k, 0.0, 100);
+            Tenant temp = new Tenant(name[k], id[k], name[k], 1000+k, 0.0, 100);
             test.delete(temp);
         }
         for (int x = 0; x < size; x++){
@@ -224,6 +259,7 @@ public class HashTable {
                 System.out.println("test failed x"+x);
             }
         }
+
         System.out.println("---test close---");
     }
 }

@@ -1,13 +1,13 @@
 public class Tenant {
     private String name;
-    private int id;
+    private String id;
     private String nickname;
     private int apt;
     private double amount;
     private int credit;
 
 
-    public Tenant(String name, int id, String nickname, int apt, double amount, int credit){
+    public Tenant(String name, String id, String nickname, int apt, double amount, int credit){
         this.name = name;
         this.id = id;
         this.nickname = nickname;
@@ -33,11 +33,11 @@ public class Tenant {
         this.nickname = nickname;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
