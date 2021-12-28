@@ -41,4 +41,5 @@ public class fee {
        }
        System.out.println("PAYDAY! Your Total Fee: "+tFee.getFee());
    }
+
 }

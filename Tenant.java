@@ -1,4 +1,4 @@
-public class tenant {
+public class Tenant {
     private String name;
     private int id;
     private String nickname;
@@ -7,7 +7,7 @@ public class tenant {
     private int credit;
 
 
-    public tenant(String name, int id, String nickname, int apt, double amount, int credit){
+    public Tenant(String name, int id, String nickname, int apt, double amount, int credit){
         this.name = name;
         this.id = id;
         this.nickname = nickname;
