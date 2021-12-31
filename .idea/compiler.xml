@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="uidemo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="LINEEE" target="" />
       <module name="uidemo" target="14" />
     </bytecodeTargetLevel>
   </component>

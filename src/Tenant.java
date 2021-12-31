@@ -2,18 +2,20 @@ public class Tenant {
     private String name;
     private String id;
     private String nickname;
-    private int apt;
+    private String apt;
     private double amount;
     private int credit;
+    private String phone;
 
 
-    public Tenant(String name, String id, String nickname, int apt, double amount, int credit){
+    public Tenant(String name, String id, String nickname, String apt, double amount, int credit, String phone){
         this.name = name;
         this.id = id;
         this.nickname = nickname;
         this.apt = apt;
         this.amount = amount;
         this.credit = credit;
+        this.phone = phone;
     }
 
     //setter & getter
@@ -41,11 +43,11 @@ public class Tenant {
         this.id = id;
     }
 
-    public int getApt() {
+    public String getApt() {
         return apt;
     }
 
-    public void setApt(int apt) {
+    public void setApt(String apt) {
         this.apt = apt;
     }
 
@@ -65,4 +67,7 @@ public class Tenant {
         this.credit = credit;
     }
 
+    public String getPhone(){return phone;}
+
+    public void setPhone(String phone){this.phone = phone;}
 }

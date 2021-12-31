@@ -1,8 +1,6 @@
 # LINEEE -- Improve the Experience in the Community
-
 ## **Request:**
 * Login/Register, User UI
-
 * MyAccount (Amount Due, Community Credit, Personal Information (unchangeable once registered), Address)
 * Check for the fee of electricity & water (daily update, or weekly, but count up monthly)
 * Amount Due = Rent + Fee + Cart (if purchased)
@@ -18,7 +16,7 @@
 * Pull a Request (Interacting with property, housekeeping service (if needed))
 * Community Mall (fee will be charged to your amount if purchased, credits = discounts)
 
-    <img alt="Image text" height="100" src="icons/parking.png" width="100"/> <img alt="Image text" height="100" src="icons/mall.png" width="100"/>
+    <img alt="Image text" height="100" src="icons/parking.png" width="100"/> <img alt="Image text" height="100" src="icons/mall.png" width="100"/> <img alt="Image text" height="100" src="icons/complaint_box.png" width="100"/>
 
 ## **Ways of Increasing credit:**
 * Likes from posts

@@ -1,4 +1,4 @@
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class HashTable {
     private final tenantNode[] tenants;
@@ -20,12 +20,11 @@ public class HashTable {
                     break;
                 }
             }
-        } catch (Exception e){
+        } catch (IllegalArgumentException e){
             System.out.println("Please enter a correct size.");
             throw e;
         }
     }
-
 
     public int hash(String id){
         int index = 0;
@@ -61,7 +60,7 @@ public class HashTable {
             num--;
         } else {
             int index = hash(t.getId());
-            Tenant temp = new Tenant(t.getName(), t.getId(), t.getNickname(), t.getApt(), t.getAmount(), t.getCredit());
+            Tenant temp = new Tenant(t.getName(), t.getId(), t.getNickname(), t.getApt(), t.getAmount(), t.getCredit(), t.getPhone());
             if (tenants[index] == null) {
                 tenants[index] = new tenantNode(temp, null);
             } else {
@@ -130,6 +129,25 @@ public class HashTable {
         }
         return false;
     }
+    public boolean findByName(String name) {
+        for (tenantNode t : tenants){
+            if (t!=null){
+                tenantNode ptr = t;
+                if (ptr.getT().getName().equals(name)){
+                    return true;
+                } else {
+                    while (ptr != null) {
+                        if (ptr.getT().getName().equals(name)){
+                            return true;
+                        } else {
+                            ptr = ptr.getNext();
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     /**
      *
@@ -183,6 +201,9 @@ public class HashTable {
         avg = getNum()/(size-empty);
     }
 
+    /*
+    Return a random ID like: X0123456X
+     */
     public String getRandomID(){
         String[] s = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         StringBuilder temp = new StringBuilder();
@@ -202,69 +223,70 @@ public class HashTable {
     }
 
 
-    public static void main(String[] args) {
-        Scanner t = new Scanner(System.in);
-        System.out.println("Please enter the size you want to test (Integer only): ");
-        int size = t.nextInt();
-        HashTable test = new HashTable(size);
-        int num = (int) (size*0.75);
-
-        String[] id = new String[num];
-        String[] s = new String[]{"Abel", "Apple", "Bella", "Chris", "Dave", "Eason", "Frozen", "Git", "Hud",
-                "Intellij", "Jason", "Kris", "Lonely", "Money", "Niko", "OVO", "Pokemon", "Qatar", "Rstar", "Stewart", "TwT"};
-        String[] name = new String[num];
-
-        for (int i = 0; i < id.length; i++) {
-            id[i] = test.getRandomID();
-            int f = (int) (s.length*Math.random());
-            int l = (int) (s.length*Math.random());
-            String temp2 = s[f]+" "+s[l];
-            name[i] = temp2;
-        }
-
-        for (int j = 0; j < num; j++){
-            test.add(new Tenant(name[j], id[j], name[j], 1000+j, 100.0, 100));
-        }
-
-
-        //num check
-        System.out.println("---getNum check---");
-        System.out.println("Supposed to have "+test.getNum()+" tenants. Test gives: "+test.getNum()+"");
-
-        //size check
-        System.out.println("---getSize check---");
-        System.out.println("Supposed to have "+test.getSize()+" tenants. Test gives: "+test.getSize()+"");
-
-        //existed check
-        System.out.println("---Existed check---");
-        for (int j = 0; j < num; j++){
-            boolean result = test.existed(id[j]);
-            if (!result){
-                System.out.println("test failed x"+j);
-            }
-        }
-
-        //collision performance check
-        System.out.println("---Performance check---");
-        test.display();
-
-        //delete check
-        System.out.println("---Delete check---");
-        for (int k = 0; k < num; k++){
-            Tenant temp = new Tenant(name[k], id[k], name[k], 1000+k, 0.0, 100);
-            test.delete(temp);
-        }
-        for (int x = 0; x < size; x++){
-            if (test.tenants[x] != null){
-                System.out.println("test failed x"+x);
-            }
-        }
-
-        System.out.println("---test close---");
-    }
+    //test for HashTable
+//    public static void main(String[] args) {
+//        Scanner t = new Scanner(System.in);
+//        System.out.println("Please enter the size you want to test (Integer only): ");
+//        int size = t.nextInt();
+//        HashTable test = new HashTable(size);
+//        int num = (int) (size*0.75);
+//
+//        String[] id = new String[num];
+//        String[] s = new String[]{"Abel", "Apple", "Bella", "Chris", "Dave", "Eason", "Frozen", "Git", "Hud",
+//                "Intellij", "Jason", "Kris", "Lonely", "Money", "Niko", "OVO", "Pokemon", "Qatar", "Rstar", "Stewart", "TwT"};
+//        String[] name = new String[num];
+//
+//        for (int i = 0; i < id.length; i++) {
+//            id[i] = test.getRandomID();
+//            int f = (int) (s.length*Math.random());
+//            int l = (int) (s.length*Math.random());
+//            String temp2 = s[f]+" "+s[l];
+//            name[i] = temp2;
+//        }
+//
+//        for (int j = 0; j < num; j++){
+//            test.add(new Tenant(name[j], id[j], name[j], "test", 100.0, 100, "phoneNumber"));
+//        }
+//
+//
+//        //num check
+//        System.out.println("---getNum check---");
+//        System.out.println("Supposed to have "+test.getNum()+" tenants. Test gives: "+test.getNum()+"");
+//
+//        //size check
+//        System.out.println("---getSize check---");
+//        System.out.println("Supposed to have "+test.getSize()+" tenants. Test gives: "+test.getSize()+"");
+//
+//        //existed check
+//        System.out.println("---Existed check---");
+//        for (int j = 0; j < num; j++){
+//            boolean result = test.existed(id[j]);
+//            if (!result){
+//                System.out.println("test failed x"+j);
+//            }
+//        }
+//
+//        //collision performance check
+//        System.out.println("---Performance check---");
+//        test.display();
+//
+//        //delete check
+//        System.out.println("---Delete check---");
+//        for (int k = 0; k < num; k++){
+//            Tenant temp = new Tenant(name[k], id[k], name[k], "test"z, 0.0, 100, "phoneNumber");
+//            test.delete(temp);
+//        }
+//        for (int x = 0; x < size; x++){
+//            if (test.tenants[x] != null){
+//                System.out.println("test failed x"+x);
+//            }
+//        }
+//
+//        System.out.println("---test close---");
+//    }
 }
 
-//linked list of tenants
+//linked list for class Tenant
 class tenantNode {
     //instances
     private Tenant t;
