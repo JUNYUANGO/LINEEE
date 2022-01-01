@@ -1,10 +1,10 @@
-//import java.util.Scanner;
+import java.util.Scanner;
 
 public class HashTable {
-    private final tenantNode[] tenants;
-    private final int size;
-    private int p;
-    private int num;
+    public tenantNode[] tenants;
+    public int size;
+    public int p;
+    public int num;
 
     //constructor: HashTable with Linked List
     public HashTable (int size){
@@ -129,6 +129,7 @@ public class HashTable {
         }
         return false;
     }
+
     public boolean findByName(String name) {
         for (tenantNode t : tenants){
             if (t!=null){
@@ -223,7 +224,7 @@ public class HashTable {
     }
 
 
-    //test for HashTable
+////    test for HashTable
 //    public static void main(String[] args) {
 //        Scanner t = new Scanner(System.in);
 //        System.out.println("Please enter the size you want to test (Integer only): ");
@@ -273,7 +274,7 @@ public class HashTable {
 //        //delete check
 //        System.out.println("---Delete check---");
 //        for (int k = 0; k < num; k++){
-//            Tenant temp = new Tenant(name[k], id[k], name[k], "test"z, 0.0, 100, "phoneNumber");
+//            Tenant temp = new Tenant(name[k], id[k], name[k], "test", 0.0, 100, "phoneNumber");
 //            test.delete(temp);
 //        }
 //        for (int x = 0; x < size; x++){
