@@ -24,9 +24,7 @@ public class HashTableForStore {
         }
     }
 
-    /*
-    O(n) delete the store.
-     */
+    // O(n) delete the store.
     public void delete(store s){
         boolean r = false;
         for (int i = 0; i < num; i++){
@@ -43,9 +41,7 @@ public class HashTableForStore {
         }
     }
 
-    /*
-    O(n) look up for the store with the given name
-     */
+    // O(n) look up for the store with the given name
     public boolean existed(String name){
         for (store store : stores){
             if (store != null){
@@ -57,9 +53,7 @@ public class HashTableForStore {
         return false;
     }
 
-    /*
-    O(n) return the position of the given store, if not found, return -1.
-     */
+    // O(n) return the position of the given store, if not found, return -1.
     public int find(store s){
         int i = 0;
         for (store store : stores){

@@ -7,7 +7,6 @@ public class HTDatabase implements Database{
         storeDB = new HashTableForStore(sizeS);
     }
 
-
     @Override
     public void insert(Tenant t) {
         database.add(t);

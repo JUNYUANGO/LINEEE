@@ -1,5 +1,3 @@
-import com.mysql.cj.protocol.Resultset;
-
 import java.sql.*;
 
 public class MySQLDatabase implements Database{
@@ -7,13 +5,17 @@ public class MySQLDatabase implements Database{
     private static final String pw = "yyYY281002sql!";
     private static final String tenantDB = "tenants";
     private static final String storeDB = "store";
-
     private Connection connection;
 
     public MySQLDatabase(){
         try {
-            String connectionString = "jdbc:mysql://localhost/root" + "?user=" + user + "&password=" + pw + "&useUnicode=true&characterEncoding=UTF-8";
-            connection = DriverManager.getConnection(connectionString);
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                String connectionString = "jdbc:mysql://localhost/test_lineee" + "?user=" + user + "&password=" + pw + "&useUnicode=true&characterEncoding=UTF-8";
+                connection = DriverManager.getConnection(connectionString);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -23,6 +25,7 @@ public class MySQLDatabase implements Database{
         MySQLDatabase test = new MySQLDatabase();
         Tenant t = new Tenant("testname", "T000111ID", "tester", "1A1001", 1000.0, 100, "098-765-4321");
         test.insert(t);
+
     }
 
     @Override
@@ -38,13 +41,11 @@ public class MySQLDatabase implements Database{
             String tPhone = "'"+t.getPhone()+"'";
 
             //MySQL query
-            String useQuery = "use "+tenantDB;
             String insert = "insert into "+tenantDB+" values (%s, %s, %s, %s, %f, %d, %s)";
             String insertQuery = String.format(insert, tName, tID, tNN, tApt, tAmount, tCredit, tPhone);
             Statement statement = connection.createStatement();
-            statement.execute(useQuery);
-            int row = statement.executeUpdate(insertQuery);
-            System.out.println("Successful Insertion to Row: "+row);
+            statement.execute(insertQuery);
+            System.out.println("Successful Insertion!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,12 +59,10 @@ public class MySQLDatabase implements Database{
             String tID = "'"+t.getId()+"'";
 
             //MySQL query
-            String useQuery = "use "+tenantDB;
             String deleteQuery = ("delete from "+tenantDB+" where id = "+tID);
             Statement statement = connection.createStatement();
-            statement.execute(useQuery);
-            int row = statement.executeUpdate(deleteQuery);
-            System.out.println("Successfully Deleted for Row: "+row);
+            statement.execute(deleteQuery);
+            System.out.println("Successfully Deleted!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
