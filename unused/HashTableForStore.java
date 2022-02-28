@@ -67,7 +67,7 @@ public class HashTableForStore {
         return -1;
     }
 
-    public void optimization(){
+    public void narrow(){
         double p = num / size;
         if (p < 0.6){
             store[] temp = new store[(int) (size*0.6)];

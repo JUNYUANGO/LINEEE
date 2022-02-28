@@ -202,29 +202,29 @@ public class HashTable {
         avg = getNum()/(size-empty);
     }
 
-    /*
-    Return a random ID like: X0123456X
-     */
-    public String getRandomID(){
-        String[] s = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        StringBuilder temp = new StringBuilder();
-        boolean r = false;
-        while (!r) {
-            int f = (int) (s.length*Math.random());
-            temp.append(s[f]);
-            int temp1 = (int) (10000000 * Math.random());
-            if (Integer.toString(temp1).length() == 7){
-                temp.append(temp1);
-                break;
-            }
-        }
-        int l = (int) (s.length*Math.random());
-        temp.append(s[l]);
-        return temp.toString();
-    }
+//    /*
+//    Return a random ID like: X0123456X
+//     */
+//    public String getRandomID(){
+//        String[] s = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+//        StringBuilder temp = new StringBuilder();
+//        boolean r = false;
+//        while (!r) {
+//            int f = (int) (s.length*Math.random());
+//            temp.append(s[f]);
+//            int temp1 = (int) (10000000 * Math.random());
+//            if (Integer.toString(temp1).length() == 7){
+//                temp.append(temp1);
+//                break;
+//            }
+//        }
+//        int l = (int) (s.length*Math.random());
+//        temp.append(s[l]);
+//        return temp.toString();
+//    }
 
 
-////    test for HashTable
+//    test for HashTable
 //    public static void main(String[] args) {
 //        Scanner t = new Scanner(System.in);
 //        System.out.println("Please enter the size you want to test (Integer only): ");

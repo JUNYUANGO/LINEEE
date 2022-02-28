@@ -1,17 +1,15 @@
 public class Tenant {
     private String name;
     private String id;
-    private String nickname;
     private String apt;
     private double amount;
     private int credit;
     private String phone;
 
 
-    public Tenant(String name, String id, String nickname, String apt, double amount, int credit, String phone){
+    public Tenant(String name, String id, String apt, double amount, int credit, String phone){
         this.name = name;
         this.id = id;
-        this.nickname = nickname;
         this.apt = apt;
         this.amount = amount;
         this.credit = credit;
@@ -25,14 +23,6 @@ public class Tenant {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getId() {

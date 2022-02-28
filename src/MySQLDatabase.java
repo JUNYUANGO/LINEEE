@@ -1,8 +1,8 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class MySQLDatabase implements Database{
     private static final String user = "root";
-    private static final String pw = "yyYY281002sql!";
     private static final String tenantDB = "tenants";
     private static final String storeDB = "store";
     private Connection connection;
@@ -10,22 +10,28 @@ public class MySQLDatabase implements Database{
     public MySQLDatabase(){
         try {
             try {
+                System.out.println("Enter the password for the database: ");
+                Scanner sc = new Scanner(System.in);
+                String pw = sc.nextLine();
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                String connectionString = "jdbc:mysql://localhost/test_lineee" + "?user=" + user + "&password=" + pw + "&useUnicode=true&characterEncoding=UTF-8";
+                String connectionString = "jdbc:mysql://localhost/LINEEE" + "?user=" + user + "&password=" + pw + "&useUnicode=true&characterEncoding=UTF-8";
                 connection = DriverManager.getConnection(connectionString);
             } catch (ClassNotFoundException e) {
+                System.out.println("Wrong Password!");
                 e.printStackTrace();
             }
         } catch (SQLException e) {
+            System.out.println("SQL Exception, wrong password!");
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         MySQLDatabase test = new MySQLDatabase();
-        Tenant t = new Tenant("testname", "T000111ID", "tester", "1A1001", 1000.0, 100, "098-765-4321");
+        Tenant t = new Tenant("testname", "T000111ID", "1A1001", 1000.0, 100, "098-765-4321");
+        System.out.println("Insertion test.");
         test.insert(t);
-
+        //Store st = new Store("testStore", "this is my address", "Monday to Friday: 8am to 8pm", "Bakery");
     }
 
     @Override
@@ -34,15 +40,14 @@ public class MySQLDatabase implements Database{
             //String to Varchar
             String tName = "'"+t.getName()+"'";
             String tID = "'"+t.getId()+"'";
-            String tNN = "'"+t.getNickname()+"'";
             String tApt = "'"+t.getApt()+"'";
             double tAmount = t.getAmount();
             int tCredit = t.getCredit();
             String tPhone = "'"+t.getPhone()+"'";
 
             //MySQL query
-            String insert = "insert into "+tenantDB+" values (%s, %s, %s, %s, %f, %d, %s)";
-            String insertQuery = String.format(insert, tName, tID, tNN, tApt, tAmount, tCredit, tPhone);
+            String insert = "insert into "+tenantDB+" values (%s, %s, %s, %f, %d, %s)";
+            String insertQuery = String.format(insert, tName, tID, tApt, tAmount, tCredit, tPhone);
             Statement statement = connection.createStatement();
             statement.execute(insertQuery);
             System.out.println("Successful Insertion!");
@@ -85,11 +90,6 @@ public class MySQLDatabase implements Database{
 
     @Override
     public void updateName(Tenant t, String name) {
-
-    }
-
-    @Override
-    public void updateNickName(Tenant t, String nickname) {
 
     }
 

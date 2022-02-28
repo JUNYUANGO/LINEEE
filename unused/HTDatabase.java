@@ -7,6 +7,11 @@ public class HTDatabase implements Database{
         storeDB = new HashTableForStore(sizeS);
     }
 
+    public HTDatabase(){
+        database = new HashTable(100);
+        storeDB = new HashTableForStore(20);
+    }
+
     @Override
     public void insert(Tenant t) {
         database.add(t);
@@ -133,11 +138,14 @@ public class HTDatabase implements Database{
         }
     }
 
-
     //methods for the store database
-    public void insertS(store s) {storeDB.add(s);}
+    public void insertS(store s) {
+        storeDB.add(s);
+    }
 
-    public void delete(store s) {storeDB.delete(s);}
+    public void delete(store s) {
+        storeDB.delete(s);
+    }
 
     public void updateNameS(store s, String name){
         int r = storeDB.find(s);
@@ -157,6 +165,4 @@ public class HTDatabase implements Database{
             System.out.println("Store Not Found.");
         }
     }
-
-
 }
